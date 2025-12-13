@@ -126,6 +126,7 @@ async function checkDomainAvailability(domain: string): Promise<DomainResult> {
     const data = whoisData[firstServer];
 
     // Check for common "not found" indicators in WHOIS response
+    // Use specific phrases to avoid false positives from terms-of-use text
     const notFoundIndicators = [
       'No match for',
       'NOT FOUND',
@@ -134,17 +135,37 @@ async function checkDomainAvailability(domain: string): Promise<DomainResult> {
       'not found',
       'no match',
       'no entries',
-      'available',
-      'Status: free'
+      'Status: free',
+      'Status: available',
+      'domain is available',
+      'available for registration',
+      'domain available',
+      'is available for purchase'
     ];
 
     // Convert data to string for searching
     const dataString = JSON.stringify(data).toLowerCase();
+
+    // First check: Search for specific "not found" phrases
     const isAvailable = notFoundIndicators.some(indicator =>
       dataString.includes(indicator.toLowerCase())
     );
 
-    if (isAvailable) {
+    // Second check: If we have registration data fields, it's definitely registered
+    const hasRegistrationData =
+      data && typeof data === 'object' && (
+        'Registrar' in data ||
+        'registrar' in data ||
+        'Creation Date' in data ||
+        'created' in data ||
+        'Expiry Date' in data ||
+        'expires' in data
+      );
+
+    // Domain is available only if indicators say so AND no registration data exists
+    const finalAvailable = isAvailable && !hasRegistrationData;
+
+    if (finalAvailable) {
       return {
         domain: normalized,
         available: true,
