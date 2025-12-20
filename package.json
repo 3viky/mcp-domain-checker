@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "postbuild": "chmod +x dist/index.js",
     "watch": "tsc --watch",
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build"
