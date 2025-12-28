@@ -1,0 +1,51 @@
+{
+  "name": "@3viky/mcp-domain-checker",
+  "version": "1.0.0",
+  "description": "Model Context Protocol server for domain availability checking and recommendations",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "mcp-domain-checker": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "postbuild": "chmod +x dist/index.js",
+    "watch": "tsc --watch",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "domain",
+    "whois",
+    "dns",
+    "domain-checker",
+    "claude-code"
+  ],
+  "author": "3viky",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/3viky/mcp-domain-checker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/3viky/mcp-domain-checker/issues"
+  },
+  "homepage": "https://github.com/3viky/mcp-domain-checker#readme",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.24.3",
+    "dotenv": "^16.6.1",
+    "whoiser": "^1.18.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.24",
+    "typescript": "^5.9.3"
+  }
+}
