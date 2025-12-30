@@ -47,5 +47,10 @@
   "devDependencies": {
     "@types/node": "^20.19.24",
     "typescript": "^5.9.3"
+  },
+  "_": {
+    "registry": "github",
+    "publish": false,
+    "build": true
   }
 }
